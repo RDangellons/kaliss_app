@@ -10,7 +10,7 @@
 </body><?php
 $marcas = [
   ["nombre"=>"Athens", "sub"=>"Boutique PHO3", "ciudad"=>"", "img"=>"assets/img/marca-1.jpg"],
-  ["nombre"=>"Vogue Room", "sub"=>"Marca local", "ciudad"=>"Tulancingo", "img"=>"assets/img/marca-2.jpg"],
+  ["nombre"=>"Vogue Room", "sub"=>"Marca local", "ciudad"=>"Tulancingo", "img"=>"assets/img/logo_tienda1.jpeg"],
   ["nombre"=>"Halo", "sub"=>"Marca local", "ciudad"=>"Tulancingo", "img"=>"assets/img/marca-3.jpg"],
   ["nombre"=>"Camellia", "sub"=>"Marca local", "ciudad"=>"Tulancingo", "img"=>"assets/img/marca-4.jpg"],
   ["nombre"=>"MoRo", "sub"=>"Marca local", "ciudad"=>"Tulancingo", "img"=>"assets/img/marca-5.jpg"],
@@ -65,7 +65,7 @@ $marcas = [
                   · <?= htmlspecialchars($m["ciudad"]) ?>
                 <?php endif; ?>
               </p>
-              <a class="btn btn--tiny" href="#">Descubrir marca</a>
+              <a class="btn btn--tiny" href="tienda.php">Descubrir marca</a>
             </div>
           </article>
         <?php endforeach; ?>

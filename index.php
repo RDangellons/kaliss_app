@@ -1,11 +1,11 @@
 <?php
 $categorias = [
-  ["slug"=>"ropa.php", "titulo"=>"Ropa", "desc"=>"Marcas locales para todos los estilos", "img"=>"assets/img/cat-ropa.jpg"],
-  ["slug"=>"#", "titulo"=>"Comida", "desc"=>"Antojos, snacks y sabores locales", "img"=>"assets/img/cat-comida.jpg"],
-  ["slug"=>"#", "titulo"=>"Cuidado personal", "desc"=>"Dermatología, skin care y bienestar", "img"=>"assets/img/cat-cuidado.jpg"],
-  ["slug"=>"#", "titulo"=>"Zapatos", "desc"=>"Tenis, squees", "img"=>"assets/img/cat-zapatos.jpg"],
-  ["slug"=>"#", "titulo"=>"Accesorios", "desc"=>"Perletes y estilo", "img"=>"assets/img/cat-accesorios.jpg"],
-  ["slug"=>"#", "titulo"=>"Fiestas", "desc"=>"Todo para celebrar", "img"=>"assets/img/cat-fiestas.jpg"],
+  ["slug"=>"ropa.php", "titulo"=>"Ropa", "desc"=>"Marcas locales para todos los estilos", "img"=>"assets/img/ropa.jpeg"],
+  ["slug"=>"#", "titulo"=>"Comida", "desc"=>"Antojos, snacks y sabores locales", "img"=>"assets/img/comida.jpeg"],
+  ["slug"=>"#", "titulo"=>"Cuidado personal", "desc"=>"Dermatología, skin care y bienestar", "img"=>"assets/img/cuidado_personal.jpeg"],
+  ["slug"=>"#", "titulo"=>"Zapatos", "desc"=>"Tenis, squees", "img"=>"assets/img/zapatos.jpeg"],
+  ["slug"=>"#", "titulo"=>"Accesorios", "desc"=>"Perletes y estilo", "img"=>"assets/img/accesorios.jpeg"],
+  ["slug"=>"#", "titulo"=>"Fiestas", "desc"=>"Todo para celebrar", "img"=>"assets/img/fiesta.jpeg"],
 ];
 ?>
 <!doctype html>
@@ -22,7 +22,7 @@ $categorias = [
 <body>
   <header class="topbar">
     <div class="container topbar__inner">
-      <a class="brand" href="index.php">KALISS</a>
+      <a class="brand" href="index.php"><img src="assets/img/logo.jpeg" alt="Logo" height="50px" ></a>
 
       <button class="hamburger" id="btnMenu" aria-label="Abrir menú">
         <span></span><span></span><span></span>
