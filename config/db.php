@@ -15,11 +15,20 @@ function db(): PDO
     //
     // En Hostinger te dan estos datos en:
     //   Panel -> Bases de datos MySQL -> Gestión -> detalles
-
+  /*
     $DB_HOST = 'localhost';
     $DB_NAME = 'kaliss';
     $DB_USER = 'root';
     $DB_PASS = '';
+
+    */
+
+//Conexion de base de datos del hostinguer
+    
+    $DB_HOST = 'localhost';
+    $DB_NAME = 'u653652676_kaliss';
+    $DB_USER = 'u653652676_ARD2010207user';
+    $DB_PASS = 'Angelalonso21';
 
     // Si estás en Hostinger, cambia DB_USER y DB_PASS por los reales.
 
