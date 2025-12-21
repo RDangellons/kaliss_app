@@ -1,20 +1,24 @@
 <?php
-// ropa.php
+// categoria.php
 declare(strict_types=1);
 
 require_once __DIR__ . '/config/db.php';
 $pdo = db();
 
-$catSlug = 'ropa';
+$catSlug = strtolower(trim((string)($_GET['slug'] ?? '')));
+if ($catSlug === '') {
+  header("Location: index.php#negocios");
+  exit;
+}
 
-// 1) Traer categoría
+// 1) Buscar la categoría real
 $stCat = $pdo->prepare("SELECT id, name, slug FROM categories WHERE slug = ? AND is_active = 1 LIMIT 1");
 $stCat->execute([$catSlug]);
 $cat = $stCat->fetch();
 
 if (!$cat) {
   http_response_code(404);
-  echo "Categoría no encontrada en BD.";
+  echo "Categoría no encontrada.";
   exit;
 }
 
@@ -27,7 +31,7 @@ $placeholder = "data:image/svg+xml;utf8," . rawurlencode(
   </svg>'
 );
 
-// 2) Tiendas activas que tengan AL MENOS 1 producto activo en la categoría "ropa"
+// 2) Traer TIENDAS activas que tengan AL MENOS 1 producto activo en esa categoría
 $sqlShops = "
   SELECT
     s.id, s.slug, s.shop_name, s.city,
@@ -53,9 +57,12 @@ $shops = $stShops->fetchAll();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><?= htmlspecialchars($cat['name']) ?> | KALISS</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Puedes usar tu ropa.css como CSS general de categorías -->
   <link rel="stylesheet" href="assets/css/ropa.css" />
 </head>
 <body>
@@ -87,7 +94,6 @@ $shops = $stShops->fetchAll();
         <div class="grid grid--brands">
           <?php foreach ($shops as $s): ?>
             <?php
-              // prioridad de imagen: hero_image > logo_path > placeholder
               $img = $placeholder;
               if (!empty($s['hero_image'])) $img = (string)$s['hero_image'];
               else if (!empty($s['logo_path'])) $img = (string)$s['logo_path'];

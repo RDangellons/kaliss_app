@@ -1,11 +1,11 @@
 <?php
 $categorias = [
-  ["slug"=>"ropa.php", "titulo"=>"Ropa", "desc"=>"Marcas locales para todos los estilos", "img"=>"assets/img/ropa.jpeg"],
-  ["slug"=>"#", "titulo"=>"Comida", "desc"=>"Antojos, snacks y sabores locales", "img"=>"assets/img/comida.jpeg"],
-  ["slug"=>"#", "titulo"=>"Cuidado personal", "desc"=>"Dermatología, skin care y bienestar", "img"=>"assets/img/cuidado_personal.jpeg"],
-  ["slug"=>"#", "titulo"=>"Zapatos", "desc"=>"Tenis, squees", "img"=>"assets/img/zapatos.jpeg"],
-  ["slug"=>"#", "titulo"=>"Accesorios", "desc"=>"Perletes y estilo", "img"=>"assets/img/accesorios.jpeg"],
-  ["slug"=>"#", "titulo"=>"Fiestas", "desc"=>"Todo para celebrar", "img"=>"assets/img/fiesta.jpeg"],
+  ["slug"=>"ropa", "titulo"=>"Ropa", "desc"=>"Marcas locales para todos los estilos", "img"=>"assets/img/ropa.jpeg"],
+  ["slug"=>"comida", "titulo"=>"Comida", "desc"=>"Antojos, snacks y sabores locales", "img"=>"assets/img/comida.jpeg"],
+  ["slug"=>"cuidado-personal", "titulo"=>"Cuidado personal", "desc"=>"Dermatología, skin care y bienestar", "img"=>"assets/img/cuidado_personal.jpeg"],
+  ["slug"=>"zapatos", "titulo"=>"Zapatos", "desc"=>"Tenis, squees", "img"=>"assets/img/zapatos.jpeg"],
+  ["slug"=>"accesorios", "titulo"=>"Accesorios", "desc"=>"Perletes y estilo", "img"=>"assets/img/accesorios.jpeg"],
+  ["slug"=>"fiestas", "titulo"=>"Fiestas", "desc"=>"Todo para celebrar", "img"=>"assets/img/fiesta.jpeg"],
 ];
 ?>
 <!doctype html>
@@ -22,7 +22,9 @@ $categorias = [
 <body>
   <header class="topbar">
     <div class="container topbar__inner">
-      <a class="brand" href="index.php"><img src="assets/img/logo.jpeg" alt="Logo" height="50px" ></a>
+      <a class="brand" href="index.php">
+        <img src="assets/img/logo.jpeg" alt="Logo" height="50">
+      </a>
 
       <button class="hamburger" id="btnMenu" aria-label="Abrir menú">
         <span></span><span></span><span></span>
@@ -71,13 +73,13 @@ $categorias = [
 
         <div class="grid">
           <?php foreach ($categorias as $c): ?>
-            <a class="card" href="<?= htmlspecialchars($c["slug"]) ?>">
+            <a class="card" href="categoria.php?slug=<?= urlencode($c['slug']) ?>">
               <div class="card__img">
-                <img src="<?= htmlspecialchars($c["img"]) ?>" alt="<?= htmlspecialchars($c["titulo"]) ?>">
+                <img src="<?= htmlspecialchars($c['img']) ?>" alt="<?= htmlspecialchars($c['titulo']) ?>">
               </div>
               <div class="card__body">
-                <h3 class="card__title"><?= htmlspecialchars($c["titulo"]) ?></h3>
-                <p class="card__text"><?= htmlspecialchars($c["desc"]) ?></p>
+                <h3 class="card__title"><?= htmlspecialchars($c['titulo']) ?></h3>
+                <p class="card__text"><?= htmlspecialchars($c['desc']) ?></p>
               </div>
             </a>
           <?php endforeach; ?>
