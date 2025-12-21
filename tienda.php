@@ -93,61 +93,171 @@ $customCss = (string)($shop['custom_css'] ?? '');
  * (Luego, en panel, haremos que solo admin/seller pueda editar theme)
  */
 $customCssSafe = str_ireplace(['</style', '<script'], ['/*blocked*/', '/*blocked*/'], $customCss);
+// Placeholder estilo "Zapatillas princesa" (fondo negro + dorado fino)
 
-// Placeholder imagen (SVG embebido)
+
+
+
 $placeholder = "data:image/svg+xml;utf8," . rawurlencode(
 '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
-  <!-- Fondo (igual a tu tarjeta) -->
-  <rect width="100%" height="100%" fill="#efe0d8"/>
+  <!-- Fondo negro -->
+  <rect width="100%" height="100%" fill="#050505"/>
 
-  <!-- Marco geométrico -->
-  <g fill="none" stroke="#b08a45" stroke-width="6" opacity="0.95" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M260 420 L320 270 L520 190 L680 190 L880 270 L940 420 L880 570 L680 650 L520 650 L320 570 Z"/>
-    <path d="M300 430 L355 295 L535 225 L665 225 L845 295 L900 430 L845 565 L665 635 L535 635 L355 565 Z" opacity="0.65"/>
+  <!-- Color dorado -->
+  <defs>
+    <style>
+      .gold-stroke{ stroke:#c9ab63; stroke-width:3.2; fill:none; stroke-linecap:round; stroke-linejoin:round; opacity:.95; }
+      .gold-fill{ fill:#c9ab63; }
+      .script{ font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive; }
+      .sans{ font-family: Arial, Helvetica, sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Marco geométrico (dos polígonos superpuestos, fino como tu imagen) -->
+  <g class="gold-stroke">
+    <!-- Polígono 1 -->
+    <path d="M600 180
+             L770 230
+             L900 360
+             L835 520
+             L600 620
+             L365 520
+             L300 360
+             L430 230 Z"/>
+    <!-- Polígono 2 (ligeramente rotado/alterno) -->
+    <path opacity=".65"
+          d="M600 160
+             L810 260
+             L880 420
+             L720 600
+             L600 650
+             L480 600
+             L320 420
+             L390 260 Z"/>
   </g>
 
-  <!-- Corona -->
-  <g fill="#b08a45" transform="translate(0,0)">
-    <path d="M600 275
-             L565 330
-             L510 305
-             L525 365
-             L600 345
-             L675 365
-             L690 305
-             L635 330 Z"/>
-    <circle cx="510" cy="305" r="6"/>
-    <circle cx="565" cy="330" r="6"/>
-    <circle cx="600" cy="275" r="6"/>
-    <circle cx="635" cy="330" r="6"/>
-    <circle cx="690" cy="305" r="6"/>
+  <!-- Corona (más pequeña y centrada arriba) -->
+  <g class="gold-fill" transform="translate(0,0)">
+    <path d="M600 265
+             L575 305
+             L540 290
+             L550 332
+             L600 318
+             L650 332
+             L660 290
+             L625 305 Z"/>
+    <circle cx="540" cy="290" r="5"/>
+    <circle cx="575" cy="305" r="5"/>
+    <circle cx="600" cy="265" r="5"/>
+    <circle cx="625" cy="305" r="5"/>
+    <circle cx="660" cy="290" r="5"/>
   </g>
 
-  <!-- Brillitos -->
-  <g fill="#b08a45" opacity="0.85">
-    <circle cx="860" cy="380" r="5"/>
-    <circle cx="890" cy="410" r="3.5"/>
-    <circle cx="835" cy="415" r="3.5"/>
-    <path d="M875 445 l8 0 l0 8 l-8 0z" opacity="0.6"/>
+  <!-- Brillitos (tipo estrellitas a la derecha) -->
+  <g class="gold-fill" opacity=".9">
+    <!-- estrellita 1 -->
+    <path d="M865 385 l8 10 l-8 10 l-8-10 z" opacity=".75"/>
+    <circle cx="895" cy="410" r="3.8"/>
+    <circle cx="838" cy="420" r="3.2"/>
+    <path d="M875 445
+             m0-10 l2.5 7.5 l7.5 2.5 l-7.5 2.5 l-2.5 7.5 l-2.5-7.5 l-7.5-2.5 l7.5-2.5 z"
+          opacity=".85"/>
   </g>
 
-  <!-- Texto (centrado) -->
-  <text x="50%" y="470" text-anchor="middle"
-        fill="#6a5246"
-        font-family="Georgia, \'Times New Roman\', serif"
-        font-size="64" font-weight="700">
-    Zapatilla princesa
+  <!-- Texto principal (script dorado) -->
+  <text x="50%" y="460" text-anchor="middle"
+        class="gold-fill script"
+        font-size="72"
+        opacity=".98">
+    Zapatillas princesa
   </text>
 
-  <text x="50%" y="535" text-anchor="middle"
-        fill="#6a5246"
-        font-family="Arial, Helvetica, sans-serif"
-        font-size="20" letter-spacing="10" opacity="0.85">
+  <!-- Subtítulo MICHELLE -->
+  <text x="50%" y="525" text-anchor="middle"
+        class="gold-fill sans"
+        font-size="22"
+        letter-spacing="12"
+        opacity=".85">
     MICHELLE
   </text>
 </svg>'
 );
+
+/**
+ * Resolución de imágenes desde carpeta (LOCAL) con fallback.
+ *
+ * ✅ Tú puedes cambiar estas rutas cuando lo implementes en tu hosting.
+ */
+function is_external_url(string $url): bool {
+  $url = trim($url);
+  if ($url === '') return false;
+  return (bool)preg_match('#^(https?:)?//#i', $url) || str_starts_with($url, 'data:');
+}
+
+function resolve_img_url(string $path, string $fallback): string {
+  $path = trim($path);
+  if ($path === '') return $fallback;
+
+  // Si ya viene como URL externa o data URI, úsalo tal cual.
+  if (is_external_url($path)) return $path;
+
+  // Si viene como ruta relativa/absoluta del proyecto.
+  $candidate = ltrim($path, '/');
+  $fs = __DIR__ . '/' . $candidate;
+  if (file_exists($fs)) return $candidate;
+
+  // Si solo viene un nombre de archivo, intentamos en carpetas comunes.
+  $basename = basename($candidate);
+  $tryDirs = [
+    'uploads/shops/',
+    'assets/img/shops/',
+    'img/shops/',
+    'img/',
+  ];
+  foreach ($tryDirs as $dir) {
+    $try = $dir . $basename;
+    if (file_exists(__DIR__ . '/' . $try)) return $try;
+  }
+
+  return $fallback;
+}
+
+// HERO (banner): si no hay hero_image_path, intentamos traer logo/imagen local por carpeta.
+$heroImageResolved = '';
+
+if (!empty($heroImage)) {
+  $heroImageResolved = resolve_img_url((string)$heroImage, $placeholder);
+} else {
+  $candidates = [];
+
+  // 1) Si la tienda trae logo_path desde BD, lo probamos
+  $logoDb = trim((string)($shop['logo_path'] ?? ''));
+  if ($logoDb !== '') {
+    $candidates[] = $logoDb;
+  }
+
+  // 2) Por convención, probamos por slug en carpetas típicas
+  foreach (['jpg','jpeg','png','webp'] as $ext) {
+    $candidates[] = "uploads/shops/{$shop['slug']}.{$ext}";
+    $candidates[] = "assets/img/shops/{$shop['slug']}.{$ext}";
+    $candidates[] = "img/shops/{$shop['slug']}.{$ext}";
+    $candidates[] = "img/{$shop['slug']}.{$ext}";
+  }
+
+  foreach ($candidates as $cand) {
+    $resolved = resolve_img_url($cand, '');
+    if ($resolved !== '') {
+      $heroImageResolved = $resolved;
+      break;
+    }
+  }
+
+  if ($heroImageResolved === '') {
+    $heroImageResolved = $placeholder;
+  }
+}
 ?>
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -159,7 +269,7 @@ $placeholder = "data:image/svg+xml;utf8," . rawurlencode(
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/tienda.css" />
 
   <!-- Theme dinámico por tienda -->
   <style>
@@ -222,11 +332,11 @@ $placeholder = "data:image/svg+xml;utf8," . rawurlencode(
         </div>
 
         <div class="hero__image">
-          <?php if (!empty($heroImage)): ?>
-            <img src="<?= htmlspecialchars($heroImage) ?>" alt="Banner de <?= htmlspecialchars($shop['shop_name']) ?>">
-          <?php else: ?>
-            <img src="<?= $placeholder ?>" alt="Sin banner">
-          <?php endif; ?>
+          <img
+            src="<?= htmlspecialchars($heroImageResolved) ?>"
+            alt="Banner de <?= htmlspecialchars($shop['shop_name']) ?>"
+            onerror="this.onerror=null;this.src='<?= $placeholder ?>';"
+          >
         </div>
       </div>
     </section>
@@ -241,7 +351,8 @@ $placeholder = "data:image/svg+xml;utf8," . rawurlencode(
           <div class="grid grid--brands">
             <?php foreach ($products as $p): ?>
               <?php
-                $img = $p['main_image'] ? (string)$p['main_image'] : $placeholder;
+                $imgPath = $p['main_image'] ? (string)$p['main_image'] : '';
+                $img = resolve_img_url($imgPath, $placeholder);
                 $price = number_format((float)$p['price'], 2);
               ?>
               <a class="card card--brand" href="producto.php?shop=<?= urlencode($shop['slug']) ?>&slug=<?= urlencode($p['slug']) ?>">
