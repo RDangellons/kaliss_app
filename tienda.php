@@ -96,11 +96,56 @@ $customCssSafe = str_ireplace(['</style', '<script'], ['/*blocked*/', '/*blocked
 
 // Placeholder imagen (SVG embebido)
 $placeholder = "data:image/svg+xml;utf8," . rawurlencode(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600">
-    <rect width="100%" height="100%" fill="#f3e3dc"/>
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-      fill="#6a5246" font-family="Arial" font-size="28">Sin imagen</text>
-  </svg>'
+'<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <!-- Fondo (igual a tu tarjeta) -->
+  <rect width="100%" height="100%" fill="#efe0d8"/>
+
+  <!-- Marco geométrico -->
+  <g fill="none" stroke="#b08a45" stroke-width="6" opacity="0.95" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M260 420 L320 270 L520 190 L680 190 L880 270 L940 420 L880 570 L680 650 L520 650 L320 570 Z"/>
+    <path d="M300 430 L355 295 L535 225 L665 225 L845 295 L900 430 L845 565 L665 635 L535 635 L355 565 Z" opacity="0.65"/>
+  </g>
+
+  <!-- Corona -->
+  <g fill="#b08a45" transform="translate(0,0)">
+    <path d="M600 275
+             L565 330
+             L510 305
+             L525 365
+             L600 345
+             L675 365
+             L690 305
+             L635 330 Z"/>
+    <circle cx="510" cy="305" r="6"/>
+    <circle cx="565" cy="330" r="6"/>
+    <circle cx="600" cy="275" r="6"/>
+    <circle cx="635" cy="330" r="6"/>
+    <circle cx="690" cy="305" r="6"/>
+  </g>
+
+  <!-- Brillitos -->
+  <g fill="#b08a45" opacity="0.85">
+    <circle cx="860" cy="380" r="5"/>
+    <circle cx="890" cy="410" r="3.5"/>
+    <circle cx="835" cy="415" r="3.5"/>
+    <path d="M875 445 l8 0 l0 8 l-8 0z" opacity="0.6"/>
+  </g>
+
+  <!-- Texto (centrado) -->
+  <text x="50%" y="470" text-anchor="middle"
+        fill="#6a5246"
+        font-family="Georgia, \'Times New Roman\', serif"
+        font-size="64" font-weight="700">
+    Zapatilla princesa
+  </text>
+
+  <text x="50%" y="535" text-anchor="middle"
+        fill="#6a5246"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="20" letter-spacing="10" opacity="0.85">
+    MICHELLE
+  </text>
+</svg>'
 );
 ?>
 <!doctype html>

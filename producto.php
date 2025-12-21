@@ -277,7 +277,7 @@ $stock = (int)$product['stock'];
           </div>
 
           <p style="margin:14px 0 0; color:var(--muted); font-size:12px;">
-            (Siguiente paso) Aquí conectamos: carrito / pedido / pago.
+           Carrito
           </p>
         </div>
       </div>

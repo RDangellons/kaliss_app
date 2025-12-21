@@ -120,7 +120,7 @@ $shops = $stShops->fetchAll();
       <?php endif; ?>
 
       <div class="center">
-        <a class="btn btn--primary btn--wide" href="index.php#negocios">Volver a categorías</a>
+        <a class="btn btn--primary btn--wide" href="index.php">Volver a categorías</a>
       </div>
     </div>
   </main>
