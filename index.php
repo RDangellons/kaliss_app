@@ -18,6 +18,7 @@ $categorias = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/hero.css" />
 </head>
 <body>
   <header class="topbar">
@@ -59,10 +60,6 @@ $categorias = [
             <a class="btn btn--primary" href="#negocios">Descubrir marcas locales</a>
             <a class="btn btn--ghost" href="#sobre">Conocer KALISS</a>
           </div>
-        </div>
-
-        <div class="hero__image">
-          <img src="assets/img/hero.jpg" alt="KALISS" />
         </div>
       </div>
     </section>

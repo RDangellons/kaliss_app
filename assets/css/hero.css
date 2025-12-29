@@ -1,0 +1,28 @@
+/* ===== Fondo solo para el hero ===== */
+.hero{
+  position: relative;
+  background-image: url("../img/fondo.jpeg");
+  background-size: cover;
+background-position: 65% 40%;
+  background-repeat: no-repeat;
+}
+
+/* overlay encima del fondo */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(245, 230, 220, 0.70);
+  border-radius: 0; /* o pon el radio si tu hero lo usa */
+}
+
+/* para que el contenido quede por encima del overlay */
+.hero > *{
+  position: relative;
+  z-index: 1;
+}
+
+
+@media (max-width: 850px){
+  body{ background-position: 100% 35%; }
+}
