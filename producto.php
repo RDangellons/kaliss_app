@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/config/session.php';
+
 
 $shopSlug = isset($_GET['shop']) ? trim((string)$_GET['shop']) : '';
 $prodSlug = isset($_GET['slug']) ? trim((string)$_GET['slug']) : '';
@@ -276,8 +278,13 @@ $stock = (int)$product['stock'];
             <a class="btn btn--ghost" href="index.php#negocios">Explorar más</a>
           </div>
 
-          <p style="margin:14px 0 0; color:var(--muted); font-size:12px;">
-           Carrito
+
+           <p style="margin:14px 0 0; color:var(--muted); font-size:12px;">
+          <input type="hidden" id="csrf" value="<?= htmlspecialchars(csrf_token()) ?>">
+<button class="btn btn--primary" id="btnAddCart" data-product-id="<?= (int)$product['id'] ?>">
+  Agregar al carrito
+</button>
+
           </p>
         </div>
       </div>
@@ -291,6 +298,25 @@ $stock = (int)$product['stock'];
   </footer>
 
   <script src="assets/js/menu.js"></script>
+
+  <script>
+const csrf = document.getElementById('csrf')?.value || '';
+const btn = document.getElementById('btnAddCart');
+
+btn?.addEventListener('click', async () => {
+  const form = new FormData();
+  form.append('csrf', csrf);
+  form.append('product_id', btn.dataset.productId);
+  form.append('qty', 1);
+
+  const res = await fetch('api/cart_add.php', { method:'POST', body: form });
+  const r = await res.json();
+  if (!r.ok) return alert(r.error || 'Error');
+
+  window.location.href = 'carrito.php';
+});
+</script>
+
   <script>
     // galería simple: cambiar imagen principal al dar clic en miniaturas
     const mainImg = document.getElementById('mainImg');
