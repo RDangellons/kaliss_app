@@ -3,7 +3,7 @@
   --bg2:#F0E0DB;
   --card:#F5E6E2;
   --text:#3a2b24;
-  --muted:#6a5246;
+  --muted:#3A2F2F;
   --primary:#5F3E2E;   /* botón café */
   --primary2:#8F684F;
   --border: rgba(95,62,46,.18);
@@ -99,6 +99,7 @@ img{ max-width:100%; display:block; }
   color:var(--muted);
 }
 .hero__text{
+  font-family: "Playfair Display", serif;
   margin:0 0 10px;
   color:rgba(58,43,36,.85);
   font-weight:300;
