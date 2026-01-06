@@ -4,6 +4,13 @@ declare(strict_types=1);
 require_once __DIR__ . '/config/session.php';
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/media.php';
+require_once __DIR__ . '/config/auth.php';
+require_login_page('checkout.php');
+
+
+// Opcional: precargar
+$prefName  = $_SESSION['user_name'] ?? '';
+$prefEmail = $_SESSION['user_email'] ?? '';
 
 $pdo = db();
 $cart = cart_get();
@@ -130,7 +137,7 @@ $total = $subtotal + $shipping;
           <div class="form__row">
             <div class="form__group">
               <label class="form__label">Nombre *</label>
-              <input class="form__input" name="customer_name" required placeholder="Juan Gabriel">
+              <input class="form__input" type="text" name="nombre" value="<?= htmlspecialchars($prefName) ?>" required>
             </div>
             <div class="form__group">
               <label class="form__label">Teléfono</label>
@@ -140,7 +147,7 @@ $total = $subtotal + $shipping;
 
           <div class="form__group">
             <label class="form__label">Email</label>
-            <input class="form__input" type="email" name="customer_email" placeholder="correo@ejemplo.com">
+            <input class="form__input" type="email" name="email" value="<?= htmlspecialchars($prefEmail) ?>" required>
           </div>
 
           <div class="form__group">

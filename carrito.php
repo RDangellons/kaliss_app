@@ -1,9 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/config/session.php';
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/media.php';
+require_once __DIR__ . '/config/auth.php';
+
+$checkoutHref = is_logged_in()
+  ? 'checkout.php'
+  : 'auth/login.php?next=' . urlencode('checkout.php');
 
 $pdo = db();
 $cart = cart_get();
@@ -51,28 +57,30 @@ if (!empty($ids)) {
     $img = resolve_img_url((string)($r['main_image'] ?? ''), $placeholderLocal);
 
     $items[] = [
-      "id"=>$pid,
-      "name"=>$r['name'],
-      "price"=>$price,
-      "qty"=>$qty,
-      "line"=>$line,
-      "stock"=>(int)$r['stock'],
-      "shop_name"=>$r['shop_name'],
-      "shop_slug"=>$r['shop_slug'],
-      "img"=>$img,
-      "prod_slug"=>$r['slug'],
+      "id" => $pid,
+      "name" => $r['name'],
+      "price" => $price,
+      "qty" => $qty,
+      "line" => $line,
+      "stock" => (int)$r['stock'],
+      "shop_name" => $r['shop_name'],
+      "shop_slug" => $r['shop_slug'],
+      "img" => $img,
+      "prod_slug" => $r['slug'],
     ];
   }
 }
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Carrito | KALISS</title>
   <link rel="stylesheet" href="assets/css/index.css" />
 </head>
+
 <body>
 
 
@@ -99,7 +107,7 @@ if (!empty($ids)) {
   <main class="section">
     <div class="container">
       <h1 class="page__title">Carrito</h1>
-      
+
 
       <?php if (empty($items)): ?>
         <p class="lead">Tu carrito está vacío.</p>
@@ -116,23 +124,23 @@ if (!empty($ids)) {
               <div class="card__body">
                 <h3 class="card__title"><?= htmlspecialchars($it['name']) ?></h3>
                 <p class="card__text">
-                  $<?= number_format($it['price'],2) ?> · <?= htmlspecialchars($it['shop_name']) ?>
+                  $<?= number_format($it['price'], 2) ?> · <?= htmlspecialchars($it['shop_name']) ?>
                 </p>
 
                 <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;">
                   <label style="font-size:13px;opacity:.8;">Cantidad</label>
                   <input class="qty"
-                         type="number"
-                         min="1"
-                         value="<?= (int)$it['qty'] ?>"
-                         data-product-id="<?= (int)$it['id'] ?>"
-                         style="width:80px;padding:8px;border-radius:10px;border:1px solid var(--border);">
+                    type="number"
+                    min="1"
+                    value="<?= (int)$it['qty'] ?>"
+                    data-product-id="<?= (int)$it['id'] ?>"
+                    style="width:80px;padding:8px;border-radius:10px;border:1px solid var(--border);">
 
                   <button class="btn btn--tiny btn-remove" data-product-id="<?= (int)$it['id'] ?>">Quitar</button>
                 </div>
 
                 <p style="margin-top:10px;font-size:13px;opacity:.8;">
-                  Subtotal: <strong>$<?= number_format($it['line'],2) ?></strong>
+                  Subtotal: <strong>$<?= number_format($it['line'], 2) ?></strong>
                 </p>
               </div>
             </div>
@@ -143,21 +151,24 @@ if (!empty($ids)) {
           <button class="btn btn--ghost" id="btnClear">Vaciar carrito</button>
           <div style="text-align:right;">
             <div style="font-size:14px;opacity:.8;">Subtotal</div>
-            <div style="font-size:22px;"><strong>$<?= number_format($subtotal,2) ?></strong></div>
-            <a class="btn btn--primary" href="checkout.php" style="margin-top:10px;display:inline-block;">Continuar a pago</a>
+            <div style="font-size:22px;"><strong>$<?= number_format($subtotal, 2) ?></strong></div>
+            <a class="btn btn--primary" href="<?= $checkoutHref ?>" style="margin-top:10px;display:inline-block;">
+              Continuar a pago
+            </a>
           </div>
         </div>
       <?php endif; ?>
     </div>
   </main>
   <footer class="footer">
-  <div class="container footer__inner">
-    <p>© <?= date("Y") ?> KALISS</p>
-  </div>
-</footer>
+    <div class="container footer__inner">
+      <p>© <?= date("Y") ?> KALISS</p>
+    </div>
+  </footer>
 
 
   <script src="assets/js/carrito.js"></script>
   <script src="assets/js/menu.js"></script>
 </body>
+
 </html>

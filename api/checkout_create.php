@@ -4,6 +4,8 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/auth.php';
+require_login_json();
 
 require_post_csrf();
 
@@ -93,12 +95,14 @@ try {
   // Crear orden
   $sqlO = "
     INSERT INTO orders
-    (order_number, customer_name, customer_phone, customer_email,
+    (order_number, user_id, customer_name, customer_phone, customer_email,
      address_line1, address_line2, city, state, postal_code,
      subtotal, shipping, total, status)
     VALUES
-    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+    (?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
   ";
+
+  $userId = (int)($_SESSION['user_id'] ?? 0);
   $stO = $pdo->prepare($sqlO);
   $stO->execute([
     $orderNumber, $name, $phone, $email,

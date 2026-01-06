@@ -36,7 +36,7 @@ $categorias = [
         <a href="#negocios" class="nav__link">Descubrir Marcas</a>
         <a href="#sobre" class="nav__link">Sobre Nosotros</a>
         <a href="carrito.php" class="nav__link">Carrito</a>
-        <a href="#unete" class="nav__cta">ÚNETE A KALISS</a>
+        <a href="./auth/login.php" class="nav__cta">ÚNETE A KALISS</a>
       </nav>
     </div>
   </header>
