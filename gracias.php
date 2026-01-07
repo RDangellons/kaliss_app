@@ -9,21 +9,11 @@ $order = trim((string)($_GET['order'] ?? ''));
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pedido confirmado | KALISS</title>
   <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/perfil.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="container topbar__inner">
-    <a class="brand" href="index.php">
-      <img src="assets/img/logo.jpeg" alt="Logo" height="50">
-    </a>
-    <nav class="nav" id="nav">
-      <a href="index.php" class="nav__link">Inicio</a>
-      <a href="index.php#negocios" class="nav__link">Descubrir Marcas</a>
-      <a href="index.php#unete" class="nav__cta">ÚNETE A KALISS</a>
-    </nav>
-  </div>
-</header>
+<?php include __DIR__ . '/partials/header.php'; ?>
 
 <main class="section">
   <div class="container" style="text-align:center;">

@@ -207,6 +207,8 @@ $stock = (int)$product['stock'];
 </head>
 
 <body data-template="<?= htmlspecialchars($template) ?>">
+
+
  <?php include __DIR__ . '/partials/header.php'; ?>
 
   <main class="section">
