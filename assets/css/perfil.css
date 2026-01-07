@@ -1,0 +1,54 @@
+/* ===== Chip usuario (navbar) ===== */
+.nav__userChip{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.16);
+  text-decoration:none;
+  color: inherit;
+  transition: transform .12s ease, background .12s ease;
+  max-width: 240px;              /* evita que se coma el header */
+}
+
+.nav__userChip:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.22);
+}
+
+.nav__userIcon{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.12);
+  flex: 0 0 auto;
+}
+
+.nav__userText{
+  font-size:13px;
+  font-weight:500;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== En móvil SE VE IGUAL, solo más compacto ===== */
+@media (max-width: 720px){
+  .nav__userChip{
+    padding:8px 12px;      /* un poco más chico */
+    gap:8px;
+    max-width: 180px;      /* para que no choque con el hamburger */
+  }
+  .nav__userIcon{
+    width:28px;
+    height:28px;
+  }
+  .nav__userText{
+    font-size:12px;
+  }
+}

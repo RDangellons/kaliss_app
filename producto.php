@@ -128,6 +128,7 @@ $stock = (int)$product['stock'];
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/perfil.css" />
 
   <style>
     :root{
@@ -206,22 +207,7 @@ $stock = (int)$product['stock'];
 </head>
 
 <body data-template="<?= htmlspecialchars($template) ?>">
-  <header class="topbar">
-    <div class="container topbar__inner">
-      <a class="brand" href="index.php">KALISS</a>
-
-      <button class="hamburger" id="btnMenu" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="nav" id="nav">
-        <a href="index.php" class="nav__link">Inicio</a>
-        <a href="index.php#negocios" class="nav__link is-active">Descubrir Marcas</a>
-        <a href="index.php#sobre" class="nav__link">Sobre Nosotros</a>
-        <a href="index.php#unete" class="nav__cta">ÚNETE A KALISS</a>
-      </nav>
-    </div>
-  </header>
+ <?php include __DIR__ . '/partials/header.php'; ?>
 
   <main class="section">
     <div class="container">
