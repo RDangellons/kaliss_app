@@ -75,26 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <title>Crear cuenta | KALISS</title>
   <link rel="stylesheet" href="../assets/css/index.css" />
   <link rel="stylesheet" href="../assets/css/checkout.css" />
+  <link rel="stylesheet" href="../assets/css/perfil.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="container topbar__inner">
-    <a class="brand" href="../index.php">
-      <img src="../assets/img/logo.jpeg" alt="Logo" height="50">
-    </a>
-    <button class="hamburger" id="btnMenu" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="nav" id="nav">
-      <a href="../index.php" class="nav__link">Inicio</a>
-      <a href="../index.php#negocios" class="nav__link">Descubrir Marcas</a>
-      <a href="../carrito.php" class="nav__link">Carrito</a>
-      <a href="../auth/register.php" class="nav__link is-active">Cuenta</a>
-      <a href="/index.php#unete" class="nav__cta">ÚNETE A KALISS</a>
-    </nav>
-  </div>
-</header>
+<?php include __DIR__ . '/../partials/header_checkout.php'; ?>
+
 
 <main class="section checkout">
   <div class="container">
@@ -106,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </div>
 
-    <div class="checkout__grid" style="grid-template-columns: 1fr .8fr;">
-      <section class="panel">
+    <div class="checkout__grid login-grid">
+      <section class="panel login-panel">
         <div class="panel__head">
           <h2 class="panel__title">Registro</h2>
           <p class="panel__hint">Al crear cuenta, podrás continuar al pago.</p>
@@ -154,13 +140,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
       </section>
 
-      <aside class="panel panel--sticky">
+      <aside class="panel panel--sticky register-panel">
         <div class="panel__head">
           <h2 class="panel__title">¿Ya tienes cuenta?</h2>
           <p class="panel__hint">Inicia sesión y continúa.</p>
         </div>
         <div style="padding:16px;">
-          <a class="btn btn--primary" style="width:100%;text-align:center;" href="/auth/login.php?next=<?= urlencode($next) ?>">
+          <a class="btn btn--primary" style="width:100%;text-align:center;" href="login.php?next=<?= urlencode($next) ?>">
             Iniciar sesión
           </a>
         </div>

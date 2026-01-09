@@ -194,6 +194,34 @@
   opacity:.85;
 }
 
+
+/* LOGIN layout: desktop a 2 columnas, móvil apilado (crear cuenta abajo) */
+.login-grid{
+  grid-template-columns: 1fr .8fr;
+  grid-template-areas: "login register";
+}
+
+.login-grid .login-panel{ grid-area: login; }
+.login-grid .register-panel{ grid-area: register; }
+
+/* En móvil: crear cuenta siempre abajo */
+@media (max-width: 980px){
+  .login-grid{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "login"
+      "register";
+  }
+}
+
+@media (max-width: 640px){
+  .register-panel{
+    background: rgba(255,255,255,.14);
+  }
+}
+
+
+
 @media (max-width: 980px){
   .checkout__grid{
     grid-template-columns: 1fr;
