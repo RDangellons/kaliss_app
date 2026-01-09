@@ -105,7 +105,7 @@ try {
   $userId = (int)($_SESSION['user_id'] ?? 0);
   $stO = $pdo->prepare($sqlO);
   $stO->execute([
-    $orderNumber, $name, $phone, $email,
+    $orderNumber, $userId, $name, $phone, $email,
     $a1, $a2, $city, $state, $cp,
     $subtotal, $shipping, $total
   ]);

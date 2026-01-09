@@ -120,7 +120,7 @@ $total = $subtotal + $shipping;
           <div class="form__row">
             <div class="form__group">
               <label class="form__label">Nombre *</label>
-              <input class="form__input" type="text" name="nombre" value="<?= htmlspecialchars($prefName) ?>" required>
+              <input class="form__input" type="text" name="customer_name" value="<?= htmlspecialchars($prefName) ?>" required>
             </div>
             <div class="form__group">
               <label class="form__label">Teléfono</label>
@@ -130,7 +130,7 @@ $total = $subtotal + $shipping;
 
           <div class="form__group">
             <label class="form__label">Email</label>
-            <input class="form__input" type="email" name="email" value="<?= htmlspecialchars($prefEmail) ?>" required>
+            <input class="form__input" type="email" name="customer_email" value="<?= htmlspecialchars($prefEmail) ?>" required>
           </div>
 
           <div class="form__group">
