@@ -196,9 +196,10 @@ $total = $subtotal + $shipping;
           <div class="row total"><span>Total</span><span>$<?= number_format($total,2) ?></span></div>
         </div>
 
-        <div class="summary__note">
-          <strong>Nota:</strong> Por ahora el pedido se crea como <em>pendiente</em>. Luego integramos pago (MercadoPago/Stripe).
-        </div>
+       <div class="mpbox">
+  <p class="form__hint" style="margin-top:10px;">Paga con Mercado Pago:</p>
+  <div id="mp_button"></div>
+</div>
       </aside>
 
     </div>
@@ -210,6 +211,13 @@ $total = $subtotal + $shipping;
     <p>© <?= date("Y") ?> KALISS</p>
   </div>
 </footer>
+
+
+<?php require_once __DIR__ . '/config/payments.php'; ?>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+  window.MP_PUBLIC_KEY = "<?= htmlspecialchars(mp_public_key(), ENT_QUOTES) ?>";
+</script>
 
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/checkout.js"></script>
