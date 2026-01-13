@@ -186,9 +186,10 @@ $total = $subtotal + $shipping;
           <div class="form__actions">
             <a class="btn btn--ghost" href="carrito.php">Volver al carrito</a>
             <button class="btn btn--primary" type="submit" id="btnConfirm">
-              Confirmar pedido
+              Pagar con Mercado Pago
             </button>
           </div>
+
 
           <p id="msg" class="form__msg"></p>
         </form>
