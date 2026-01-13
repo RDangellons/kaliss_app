@@ -24,7 +24,7 @@ $next = $_SERVER['REQUEST_URI'] ?? '/checkout.php';
       <a href="./carrito.php" class="nav__link">Carrito</a>
 
      <?php if (is_logged_in()): ?>
-  <a class="nav__userChip" href="/perfil.php" title="Mi perfil">
+  <a class="nav__userChip" href="perfil.php" title="Mi perfil">
     <span class="nav__userIcon" aria-hidden="true">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
         <path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

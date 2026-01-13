@@ -12,6 +12,31 @@ require_login_page('checkout.php');
 $prefName  = $_SESSION['user_name'] ?? '';
 $prefEmail = $_SESSION['user_email'] ?? '';
 
+// Precargar dirección guardada (si existe)
+$prefPhone = '';
+$prefA1 = '';
+$prefA2 = '';
+$prefCity = '';
+$prefState = '';
+$prefCP = '';
+
+try {
+  $uid = (int)($_SESSION['user_id'] ?? 0);
+  if ($uid > 0) {
+    $stP = db()->prepare("SELECT phone, address_line1, address_line2, city, state, postal_code FROM user_addresses WHERE user_id=? LIMIT 1");
+    $stP->execute([$uid]);
+    $p = $stP->fetch() ?: [];
+    $prefPhone = (string)($p['phone'] ?? '');
+    $prefA1 = (string)($p['address_line1'] ?? '');
+    $prefA2 = (string)($p['address_line2'] ?? '');
+    $prefCity = (string)($p['city'] ?? '');
+    $prefState = (string)($p['state'] ?? '');
+    $prefCP = (string)($p['postal_code'] ?? '');
+  }
+} catch (Throwable $e) {
+  // si no existe la tabla aún, no rompemos el checkout
+}
+
 $pdo = db();
 $cart = cart_get();
 $ids = array_keys($cart);
@@ -124,7 +149,7 @@ $total = $subtotal + $shipping;
             </div>
             <div class="form__group">
               <label class="form__label">Teléfono</label>
-              <input class="form__input" name="customer_phone" placeholder="771 000 0000">
+              <input class="form__input" name="customer_phone" value="<?= htmlspecialchars($prefPhone) ?>" placeholder="771 000 0000">
             </div>
           </div>
 
@@ -135,26 +160,26 @@ $total = $subtotal + $shipping;
 
           <div class="form__group">
             <label class="form__label">Dirección *</label>
-            <input class="form__input" name="address_line1" required placeholder="Calle, número, colonia">
+            <input class="form__input" name="address_line1" required value="<?= htmlspecialchars($prefA1) ?>" placeholder="Calle, número, colonia">
           </div>
 
           <div class="form__group">
             <label class="form__label">Referencias</label>
-            <input class="form__input" name="address_line2" placeholder="Entre calles, color de casa, etc.">
+            <input class="form__input" name="address_line2" value="<?= htmlspecialchars($prefA2) ?>" placeholder="Entre calles, color de casa, etc.">
           </div>
 
           <div class="form__row">
             <div class="form__group">
               <label class="form__label">Ciudad</label>
-              <input class="form__input" name="city" placeholder="Tulancingo">
+              <input class="form__input" name="city" value="<?= htmlspecialchars($prefCity) ?>" placeholder="Tulancingo">
             </div>
             <div class="form__group">
               <label class="form__label">Estado</label>
-              <input class="form__input" name="state" placeholder="Hidalgo">
+              <input class="form__input" name="state" value="<?= htmlspecialchars($prefState) ?>" placeholder="Hidalgo">
             </div>
             <div class="form__group">
               <label class="form__label">C.P.</label>
-              <input class="form__input" name="postal_code" placeholder="43600">
+              <input class="form__input" name="postal_code" value="<?= htmlspecialchars($prefCP) ?>" placeholder="43600">
             </div>
           </div>
 
